@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)http://yjhctxz.ethane.com.cn:10245/traffic/company/index -->
+<html><head lang="en"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <!-- 目前仅限360急速浏览 webkit:急速  ie-comp:ie兼容模式   ie-stand: ie标准模式 -->
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/initial.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/account_number.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/modle.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/paging.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/darktooltip.css"/>
+
+    <style type="text/css">
+        .pop-up form div input{
+            display: inline-block;
+            width: 260px;
+        }
+        .my-modal-footer .save {
+            background-color: #25B4B2;
+        }
+        .my-modal-title{
+            text-align: center;
+            font-size: 20px;
+        }
+        .pop-up form div select{
+            width: 360px;
+            height: 32px;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            border: solid 1px #eeeeee;
+            text-indent: 0.5em;
+            outline: none;
+            width: 260px;
+        }
+
+        .my-modal-footer .btn{
+            margin-left: 0px;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+<div class="table_wrapper">
+    <div class="table_head">
+        <span>账号信息</span>
+    </div>
+    <div class="table_container">
+        <div class="search_input">
+            <label for="ss">账号搜索</label>
+            <form action="/account" method="GET" style="display: inline-block;">
+                <input type="text" placeholder="输入账号" id="ss" name="search_name">
+            </form>
+            <span class="find_btn" id="find_btn">查询</span>
+            <span class="add_company" id="add">新增用户</span>
+        </div>
+        <!--显示查询结果-->
+        <table class="table_box" id="table_box">
+            <thead>
+                <tr>
+                    <td style="width: 200px">序号</td>
+                    <td>账号</td>
+                    <td>部门</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in mp.object_list %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td title="{{ item.username }}">{{ item.username }}</td>
+                    <td title="{{ item.dept.dept_name }}">{{ item.dept.dept_name }}</td>
+                    <td>
+                        <button type="button" class="see" style="margin-right: 5px;" onclick="setUserInfo(
+                        '{{ item.username }}', '{{ item.dept.id }}', '{{ item.id }}')">查看</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!--分页-->
+    <div id="pageToolbar">
+        <div id="Paging_009071537570730115" class="ui-paging-container">
+            <ul>
+                <a href="/account?page_num=1&search_name={{ search_name }}"><li class="js-page-first js-page-action ui-pager">&lt;&lt;首页</li></a>
+                <a href="/account?page_num={{ mp.current_num|add:-1 }}&search_name={{ search_name }}"><li class="js-page-prev js-page-action ui-pager">上一页</li></a>
+                {% for num in mp.page_range %}
+                    {% if num == mp.current_num %}
+                    <a href="/account?page_num={{ num }}&search_name={{ search_name }}"><li class="ui-pager focus">{{ num }}</li></a>
+                    {% else %}
+                    <a href="/account?page_num={{ num }}&search_name={{ search_name }}"><li class="ui-pager">{{ num }}</li></a>
+                    {% endif %}
+                {% endfor %}
+                <a href="/account?page_num={{ mp.current_num|add:1 }}&search_name={{ search_name }}"><li class="js-page-next js-page-action ui-pager">下一页</li></a>
+                <a href="/account?page_num={{ mp.total_pages }}&search_name={{ search_name }}"><li class="js-page-last js-page-action ui-pager">末页&gt;&gt;</li></a>
+                <li class="ui-paging-toolbar">
+                    <form action="/account" method="GET">
+                        <input type="text" class="ui-paging-count" style="font-size: 12px;" name="page_num" value="{{ mp.current_num }}" />
+                        <input type="hidden" name="search_name" value="{{ search_name }}" />
+                        <span>/&nbsp;{{ mp.total_pages }}</span>
+                        <a href="javascript:jump()">跳转</a>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--模态框-->
+<!-- 新增企业 -->
+<div class="pop-up add-enterprise" style="display: none;height: 360px;">
+    <div class="my-modal-title">
+        <p>新增用户</p>
+    </div>
+    <div class="my-modal-body" style="margin-top: 20px;">
+        <form id="form_1" action="/account_add/" method="POST">
+            <p style="margin: auto;font-size: 16px;text-align: center;margin-bottom: 10px;">帐号信息</p>
+            <div class="user">
+                <label for="user">账号</label>
+                <input type="text" placeholder="输入账号" id="user" name="username">
+            </div>
+            <div class="pwd">
+                <label for="pwd">密码</label>
+                <input type="password" placeholder="输入密码" id="pwd" name="password">
+            </div>
+            <div class="pwd">
+                <label for="pwd">所属单位</label>
+                <select name="dept">
+                    <option value="1">安监处</option>
+                    <option value="2">和平支队</option>
+                    <option value="3">河东支队</option>
+                    <option value="4">河西支队</option>
+                    <option value="5">河北支队</option>
+                    <option value="6">南开支队</option>
+                    <option value="7">红桥支队</option>
+                    <option value="8">西青支队</option>
+                    <option value="9">东丽支队</option>
+                    <option value="10">津南支队</option>
+                    <option value="11">北辰支队</option>
+                    <option value="12">滨海支队</option>
+                    <option value="13">塘沽支队</option>
+                    <option value="14">汉沽支队</option>
+                    <option value="15">大港支队</option>
+                    <option value="16">天津港支队</option>
+                    <option value="17">武清支队</option>
+                    <option value="18">宝坻支队</option>
+                    <option value="19">宁河支队</option>
+                    <option value="20">静海支队</option>
+                    <option value="21">蓟州支队</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <div class="my-modal-footer">
+        <div class="clickbtn" style="margin: 5px;width: 410px;text-align: center;margin-left: 25px;">
+            <button type="button" class="btn save">保存</button>
+            <button type="button" class="btn reset" style="display: none;">重置</button>
+            <button type="button" class="btn del" style="margin: 0px;">取消</button>
+        </div>
+    </div>
+</div>
+
+<!-- 编辑企业信息 -->
+<div class="pop-up modify-enterprise" style="display: none;height: 360px;">
+    <div class="my-modal-title">
+        <p>编辑用户</p>
+    </div>
+    <div class="my-modal-body" style="margin-top: 20px;">
+        <form id="form_1" action="/account_add/" method="POST">
+            <p style="margin: auto;font-size: 16px;text-align: center;margin-bottom: 10px;">帐号信息</p>
+            <div class="user">
+                <label for="user">账号</label>
+                <input type="text" placeholder="输入账号" name="username">
+            </div>
+            <div class="pwd">
+                <label for="pwd">密码</label>
+                <input type="password" placeholder="输入密码" name="password">
+            </div>
+            <div class="dept">
+                <label for="pwd">所属单位</label>
+                <select name="dept">
+                    <option value="1">安监处</option>
+                    <option value="2">和平支队</option>
+                    <option value="3">河东支队</option>
+                    <option value="4">河西支队</option>
+                    <option value="5">河北支队</option>
+                    <option value="6">南开支队</option>
+                    <option value="7">红桥支队</option>
+                    <option value="8">西青支队</option>
+                    <option value="9">东丽支队</option>
+                    <option value="10">津南支队</option>
+                    <option value="11">北辰支队</option>
+                    <option value="12">滨海支队</option>
+                    <option value="13">塘沽支队</option>
+                    <option value="14">汉沽支队</option>
+                    <option value="15">大港支队</option>
+                    <option value="16">天津港支队</option>
+                    <option value="17">武清支队</option>
+                    <option value="18">宝坻支队</option>
+                    <option value="19">宁河支队</option>
+                    <option value="20">静海支队</option>
+                    <option value="21">蓟州支队</option>
+                </select>
+            </div>
+            <input type="hidden" name="user_id" class="user-id">
+        </form>
+    </div>
+    <div class="my-modal-footer">
+        <div class="clickbtn" style="margin: 5px;width: 460px;text-align: center;">
+            <button type="button" class="btn save">保存</button>
+            <button type="button" class="btn delete">删除</button>
+            <button type="button" class="btn del" style="margin: 0px;">取消</button>
+        </div>
+    </div>
+</div>
+<div class="mask" style="display: none;"></div>
+<input type="hidden" id="pageNum" value="1">
+
+<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript" src="/static/js/through.js"></script>
+<script type="text/javascript" src="/static/js/query.js"></script>
+<script type="text/javascript" src="/static/js/paging.js"></script>
+<script type="text/javascript" src="/static/js/md5.js"></script>
+<script type="text/javascript" src="/static/js/jquery.darktooltip.js"></script>
+
+<script type="text/javascript">
+
+    $(function() {
+
+        // 显示新增企业模态框
+        $('.search_input .add_company').click(function(){
+            $('.add-enterprise').show();
+            $('.mask').show();
+        });
+
+        // 隐藏新增企业模态框
+        $('.add-enterprise .del').click(function() {
+            if (confirm('是否取消新增？')) {
+                $('.add-enterprise').hide();
+                $('.mask').hide();
+            }
+        });
+
+        // 保存新增企业
+        $('.add-enterprise .save').click(function() {
+            var username = $('.add-enterprise .user input').val();
+            var password = $('.add-enterprise .pwd input').val();
+            if (username == '') {
+                alert('用户名不能为空');
+            }
+            else if (password == '') {
+                alert('密码不能为空');
+            }
+            else {
+                // 判断用户名是否已经存在
+                $.get('/is_user_exist', {'username': username}, function(data) {
+                    if (data.is_exist) {
+                        alert('账号名称已经存在，请使用其它账号名称');
+                    }
+                    else if (confirm('是否保存新增账号信息？')) {
+                        $('.add-enterprise form').submit();
+                        $('.add-enterprise').hide();
+                        $('.mask').hide();
+                    }
+                });
+            }
+        });
+
+        // 显示编辑企业模态框
+        $('.table_box .see').click(function(){
+            $('.modify-enterprise').show();
+            $('.mask').show();
+        });
+
+        // 隐藏编辑企业模态框
+        $('.modify-enterprise .del').click(function() {
+            if (confirm('是否取消编辑？')) {
+                $('.modify-enterprise').hide();
+                $('.mask').hide();
+            }
+        });
+
+        // 保存编辑企业信息
+        $('.modify-enterprise .save').click(function() {
+            var username = $('.modify-enterprise .user input').val();
+            var password = $('.modify-enterprise .pwd input').val();
+            var id = $('.modify-enterprise input').last().val();
+
+            if (username == '') {
+                alert('用户名不能为空');
+            }
+            else if (password == '') {
+                alert('密码不能为空');
+            }
+            else {
+                // 判断用户名是否已经存在
+                $.get('/is_user_exist', {'username': username, 'id': id}, function(data) {
+                    if (data.is_exist) {
+                        alert('账号名称已经存在，请使用其它账号名称');
+                    }
+                    else if (confirm('是否保存账号信息？')) {
+                        $('.modify-enterprise form').prop('action', '/account_modify/');
+                        $('.modify-enterprise form').submit();
+                        $('.modify-enterprise').hide();
+                        $('.mask').hide();
+                    }
+                });
+            }
+        });
+
+        // 编辑企业信息表单提交: 删除
+        $('.modify-enterprise .delete').click(function() {
+            if (confirm('是否删除该账号？')) {
+                $('.modify-enterprise form').prop('action', '/account_delete/');
+                $('.modify-enterprise form').submit();
+                $('.modify-enterprise').hide();
+                $('.mask').hide();
+            }
+        });
+
+        // 提交企业查询表单
+        $('#find_btn').click(function() {
+            $('.search_input form').submit();
+        });
+
+    });
+
+    // 填充编辑企业模态框信息
+    function setUserInfo(username, dept_id, user_id) {
+        $('.modify-enterprise .user input').val(username);     // 企业名称
+        $('.modify-enterprise select').val(dept_id);                      // 权限
+        $('.modify-enterprise .pwd input').val('########');                 // 密码
+        $('.modify-enterprise .user-id').val(user_id);
+    }
+
+    // 跳转到指定页面
+    function jump() {
+        $('#pageToolbar form').submit();
+    }
+</script>
+
+</body></html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <!-- 目前仅限360急速浏览 webkit:急速  ie-comp:ie兼容模式   ie-stand: ie标准模式 -->
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/initial.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/account_number.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/modle.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/paging.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/darktooltip.css"/>
+
+    <style type="text/css">
+        .table_container .search_input select{
+            width: 150px;
+            height: 24px;
+            border-radius: 4px;
+            padding-left: 10px;
+            background-color: #f9f9f9;
+            border: solid 1px #eeeeee;
+            margin-right: 10px;
+            outline: none;
+        }
+
+        .table_head .number_word{
+        float: right;
+        margin-right: 20px;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+<div class="table_wrapper">
+    <div class="table_head">
+        <span>本月通行证下载</span>
+        <!--<span class="number_word">车辆提交上限&nbsp;:&nbsp;{{ limit_number }}</span>-->
+        <!--<span class="number_word">已提交车辆数&nbsp;:&nbsp;{{ applied_number }}</span>-->
+    </div>
+    <div class="table_container">
+        <div class="search_input">
+            <label for="ss">车辆搜索</label>
+            <form action="/last" method="GET" style="display: inline-block;">
+                <input type="text" placeholder="输入车牌号码" id="ss" name="number" value="{{ number }}" />
+                <select name="status">
+                    <option value="0" {% if status == 0 %}selected{% endif %}>全部车辆</option>
+                    <!--<option value="1" {% if status == 1 %}selected{% endif %}>未提交车辆</option>-->
+                    <!--<option value="2" {% if status == 2 %}selected{% endif %}>待审核车辆</option>-->
+                    <option value="4" {% if status == 4 %}selected{% endif %}>已通过车辆</option>
+                    <option value="5" {% if status == 5 %}selected{% endif %}>未通过车辆</option>
+                </select>
+            </form>
+            <span class="find_btn">查询</span>
+        </div>
+        <!--检索结果-->
+        <table class="table_box" id="table_box">
+            <thead>
+                <tr>
+                    <td style="width: 4%">序号</td>
+                    <td>号牌号码</td>
+                    <td>审核状态</td>
+                    <td>原因</td>
+                    <td style="width: 200px">操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vehicle in mp.object_list %}
+                <tr>
+                    <td style="width: 4%">{{ forloop.counter }}</td>
+                    <td title="{{ vehicle.number }}">{{ vehicle.number }}</td>
+                    <td title="{{ vehicle.status.name }}">{{ vehicle.status.name }}</td>
+                    <td title="{{ vehicle.reason|default:'' }}">{{ vehicle.reason|default:'' }}</td>
+                    <td>
+                        {% if vehicle.status.id == 4 %}
+                        <a href="/static/certification_backup/{{ vehicle.file_name }}" target="_Blank" class="see download" style="margin-right: 5px;">下载</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div id="pagingToolBar"></div>
+    <!--分页-->
+    <div id="pageToolbar">
+        <div id="Paging_009071537570730115" class="ui-paging-container">
+            <ul>
+                <a href="/last?page_num=1&number={{ number }}&status={{ status }}"><li class="js-page-first js-page-action ui-pager">&lt;&lt;首页</li></a>
+                <a href="/last?page_num={{ mp.current_num|add:-1 }}&number={{ number }}&status={{ status }}"><li class="js-page-prev js-page-action ui-pager">上一页</li></a>
+                {% for num in mp.page_range %}
+                    {% if num == mp.current_num %}
+                    <a href="/last?page_num={{ num }}&search_name={{ number }}&status={{ status }}"><li class="ui-pager focus">{{ num }}</li></a>
+                    {% else %}
+                    <a href="/last?page_num={{ num }}&search_name={{ number }}&status={{ status }}"><li class="ui-pager">{{ num }}</li></a>
+                    {% endif %}
+                {% endfor %}
+                <a href="/last?page_num={{ mp.current_num|add:1 }}&number={{ number }}&status={{ status }}"><li class="js-page-next js-page-action ui-pager">下一页</li></a>
+                <a href="/last?page_num={{ mp.total_pages }}&number={{ number }}&status={{ status }}"><li class="js-page-last js-page-action ui-pager">末页&gt;&gt;</li></a>
+                <li class="ui-paging-toolbar">
+                    <form action="/vehicle" method="GET">
+                        <input type="text" class="ui-paging-count" style="font-size: 12px;" name="page_num" value="{{ mp.current_num }}" />
+                        <input type="hidden" name="number" value="{{ number }}" />
+                        <input type="hidden" name="status" value="{{ status }}" />
+                        <span>/&nbsp;{{ mp.total_pages }}</span>
+                        <a href="javascript:jump()">跳转</a>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript" src="/static/js/through.js"></script>
+<script type="text/javascript" src="/static/js/query.js"></script>
+<script type="text/javascript" src="/static/js/paging.js"></script>
+<script type="text/javascript" src="/static/js/md5.js"></script>
+<script type="text/javascript" src="/static/js/jquery.darktooltip.js"></script>
+
+<script type="text/javascript">
+    $(function() {
+        // 提交车辆查询表单
+        $('.search_input .find_btn').click(function() {
+            $('.search_input form').submit();
+        });
+    });
+</script>
+
+</html>

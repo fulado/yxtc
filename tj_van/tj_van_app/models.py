@@ -31,12 +31,13 @@ class Vehicle(models.Model):
     d_phone = models.CharField(max_length=20, null=True, blank=True)  # 驾驶员电话
     discovery = models.IntegerField(default=0, null=True, blank=True)  # 排查状态: 0-未排查, 1-路面排查, 2-源头排查
     d_time = models.DateTimeField(null=True, blank=True)  # 排查时间
+    d_dept_id = models.IntegerField(default=0, null=True, blank=True)  # 排查人员所属支队id
     is_card = models.BooleanField(default=False)  # 是否已发卡
     is_archive = models.BooleanField(default=False)  # 是否已建档
     c_time = models.DateTimeField(null=True, blank=True)  # 发卡时间
     a_time = models.DateTimeField(null=True, blank=True)  # 建档时间
     dept = models.ForeignKey(Dept, on_delete=models.CASCADE, null=True, blank=True)  # 所属支队
-    status = models.IntegerField(default=1, null=True, blank=True)  # 车辆状态: 1-未提交任务, 2-提交处理, 3-处理完成
+    status = models.IntegerField(default=1, null=True, blank=True)  # 车辆状态: 1-未排查, 2-办理中, 3-办理完成
     secure = models.CharField(max_length=200, null=True, blank=True)  # 隐患内容
     is_secure = models.BooleanField(default=False)  # 是否存在安全隐患
 

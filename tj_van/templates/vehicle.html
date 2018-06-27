@@ -129,6 +129,25 @@
                     <option value="20" {% if dept == 20 %}selected{% endif %}>静海支队</option>
                     <option value="21" {% if dept == 21 %}selected{% endif %}>蓟州支队</option>
                 </select>
+                <label for="pwd">排查状况</label>
+                <select name="status">
+                    <option value="1" {% if status == 1 %}selected{% endif %}>未排查车辆</option>
+                    <option value="2" {% if status == 2 %}selected{% endif %}>待办理车辆</option>
+                    <option value="3" {% if status == 3 %}selected{% endif %}>办理完成车辆</option>
+                    <option value="0" {% if status == 0 %}selected{% endif %}>全部车辆</option>
+                </select>
+                <label for="pwd">发卡状况</label>
+                <select name="is_card">
+                    <option value="2" {% if is_card == 2 %}selected{% endif %}>全部车辆</option>
+                    <option value="0" {% if is_card == 0 %}selected{% endif %}>未发卡车辆</option>
+                    <option value="1" {% if is_card == 1 %}selected{% endif %}>已发卡车辆</option>
+                </select>
+                <label for="pwd">建档状况</label>
+                <select name="is_archive">
+                    <option value="2" {% if is_archive == 2 %}selected{% endif %}>全部车辆</option>
+                    <option value="0" {% if is_archive == 0 %}selected{% endif %}>未建档车辆</option>
+                    <option value="1" {% if is_archive == 1 %}selected{% endif %}>已建档车辆</option>
+                </select>
             </form>
             <span class="find_btn">查询</span>
         </div>
@@ -142,6 +161,7 @@
                     <td>车辆识别代号</td>
                     <td>所有人</td>
                     <td>所属辖区</td>
+                    <td>办理状态</td>
                     <td>是否发卡</td>
                     <td>是否建档</td>
                     <td style="width: 200px">操作</td>
@@ -156,6 +176,7 @@
                     <td title="{{ item.vin }}">{{ item.vin }}</td>
                     <td title="{{ item.owner }}">{{ item.owner }}</td>
                     <td title="{{ item.dept.dept_name }}">{{ item.dept.dept_name }}</td>
+                    <td>{% if item.status == 1 %}未排查{% elif item.status == 2 %}办理中{% else %}办理完成{% endif %}</td>
                     <td title="{% if item.is_card %}是{% else %}否{% endif %}">{% if item.is_card %}是{% else %}否{% endif %}</td>
                     <td title="{% if item.is_archive %}是{% else %}否{% endif %}">{% if item.is_archive %}是{% else %}否{% endif %}</td>
                     <td>
@@ -177,22 +198,25 @@
     <div id="pageToolbar">
         <div id="Paging_009071537570730115" class="ui-paging-container">
             <ul>
-                <a href="/vehicle?page_num=1&number={{ number }}&dept={{ dept }}"><li class="js-page-first js-page-action ui-pager">&lt;&lt;首页</li></a>
-                <a href="/vehicle?page_num={{ mp.current_num|add:-1 }}&number={{ number }}&dept={{ dept }}"><li class="js-page-prev js-page-action ui-pager">上一页</li></a>
+                <a href="/vehicle?page_num=1&number={{ number }}&dept={{ dept }}&status={{ status }}&is_card={{ is_card }}&is_archive={{ is_archive }}"><li class="js-page-first js-page-action ui-pager">&lt;&lt;首页</li></a>
+                <a href="/vehicle?page_num={{ mp.current_num|add:-1 }}&number={{ number }}&dept={{ dept }}&status={{ status }}&is_card={{ is_card }}&is_archive={{ is_archive }}"><li class="js-page-prev js-page-action ui-pager">上一页</li></a>
                 {% for num in mp.page_range %}
                     {% if num == mp.current_num %}
-                    <a href="/vehicle?page_num={{ num }}&number={{ number }}&dept={{ dept }}"><li class="ui-pager focus">{{ num }}</li></a>
+                    <a href="/vehicle?page_num={{ num }}&number={{ number }}&dept={{ dept }}&status={{ status }}&is_card={{ is_card }}&is_archive={{ is_archive }}"><li class="ui-pager focus">{{ num }}</li></a>
                     {% else %}
-                    <a href="/vehicle?page_num={{ num }}&number={{ number }}&dept={{ dept }}"><li class="ui-pager">{{ num }}</li></a>
+                    <a href="/vehicle?page_num={{ num }}&number={{ number }}&dept={{ dept }}&status={{ status }}&is_card={{ is_card }}&is_archive={{ is_archive }}"><li class="ui-pager">{{ num }}</li></a>
                     {% endif %}
                 {% endfor %}
-                <a href="/vehicle?page_num={{ mp.current_num|add:1 }}&number={{ number }}&dept={{ dept }}"><li class="js-page-next js-page-action ui-pager">下一页</li></a>
-                <a href="/vehicle?page_num={{ mp.total_pages }}&number={{ number }}&dept={{ dept }}"><li class="js-page-last js-page-action ui-pager">末页&gt;&gt;</li></a>
+                <a href="/vehicle?page_num={{ mp.current_num|add:1 }}&number={{ number }}&dept={{ dept }}&status={{ status }}&is_card={{ is_card }}&is_archive={{ is_archive }}"><li class="js-page-next js-page-action ui-pager">下一页</li></a>
+                <a href="/vehicle?page_num={{ mp.total_pages }}&number={{ number }}&dept={{ dept }}&status={{ status }}&is_card={{ is_card }}&is_archive={{ is_archive }}"><li class="js-page-last js-page-action ui-pager">末页&gt;&gt;</li></a>
                 <li class="ui-paging-toolbar">
                     <form action="/vehicle" method="GET">
                         <input type="text" class="ui-paging-count" style="font-size: 12px;" name="page_num" value="{{ mp.current_num }}" />
                         <input type="hidden" name="number" value="{{ number }}" />
                         <input type="hidden" name="dept" value="{{ dept }}" />
+                        <input type="hidden" name="status" value="{{ status }}" />
+                        <input type="hidden" name="is_card" value="{{ is_card }}" />
+                        <input type="hidden" name="is_archive" value="{{ is_archive }}" />
                         <span>/&nbsp;{{ mp.total_pages }}</span>
                         <a href="javascript:jump()">跳转</a>
                     </form>

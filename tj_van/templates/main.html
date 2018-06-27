@@ -40,10 +40,6 @@
 </div>
 <div class="nav_bar">
     <ul class="first">
-        {% if user.authority != 2 %}
-{#        <li class="main">账号管理</li>#}
-        <li class="down_menu" data-url="/account">账号管理</li>
-        {% endif %}
         {% if user.authority != 1%}
 {#        <li class="main">任务办理</li>#}
         <li class="down_menu" data-url="/verify">任务办理</li>
@@ -54,13 +50,17 @@
         {% endif %}
         {% if user.authority != 2 %}
 {#        <li class="main">数据统计</li>#}
-        <li class="down_menu" data-url="/last">数据统计</li>
+        <li class="down_menu" data-url="/statistic">数据统计</li>
+        {% endif %}
+        {% if user.authority != 2 %}
+{#        <li class="main">账号管理</li>#}
+        <li class="down_menu" data-url="/account">账号管理</li>
         {% endif %}
     </ul>
 </div>
 <div class="content">
     {% if user.authority != 2 %}
-    <iframe src="/account" frameborder="0" width="100%" height="100%"  id="content_iframe"></iframe>
+    <iframe src="/statistic" frameborder="0" width="100%" height="100%"  id="content_iframe"></iframe>
     {% endif %}
     {% if user.authority != 1 %}
     <iframe src="/verify" frameborder="0" width="100%" height="100%"  id="content_iframe"></iframe>

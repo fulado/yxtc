@@ -100,8 +100,6 @@
                 <select name="status">
                     <option value="2" {% if status == 2 %}selected{% endif %}>待办理车辆</option>
                     <option value="3" {% if status == 3 %}selected{% endif %}>办理完成车辆</option>
-                    <option value="1" {% if status == 1 %}selected{% endif %}>未排查车辆</option>
-                    <option value="0" {% if status == 0 %}selected{% endif %}>全部车辆</option>
                 </select>
                 <input type="submit" class="find_btn" value="查询" style="padding: 0px;"/>
             </form>
@@ -263,8 +261,8 @@
                     <td><span>隐患是否整改</span></td>
                     <td>
                         <select name="is_secure" placeholder="请选择隐患是否整改">
-                            <option value="0">否</option>
-                            <option value="1">是</option>
+                            <option value="1">否</option>
+                            <option value="0">是</option>
                         </select>
                     </td>
                 </tr>
@@ -276,9 +274,9 @@
                             <option value="1">是</option>
                         </select>
                     </td>
-                    <td rowspan="3"><span>隐患内容</span></td>
+                    <td rowspan="3"><span>隐患内容<br /></span></td>
                     <td rowspan="3">
-                        <textarea name="secure" id="reason" placeholder="请填写安全隐患详情" style="resize:none; border-radius: 4px; background-color: #f9f9f9;border: solid 1px #eeeeee;outline: none;padding: 10px;width:200px;height:100px"></textarea>
+                        <textarea name="secure" id="reason" placeholder="无安全隐患" style="resize:none; border-radius: 4px; background-color: #f9f9f9;border: solid 1px #eeeeee;outline: none;padding: 10px;width:200px;height:100px"></textarea>
                     </td>
                 </tr>
                 <tr>

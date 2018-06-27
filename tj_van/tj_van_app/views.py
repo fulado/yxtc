@@ -1,6 +1,6 @@
 from tj_van import settings
 from tj_van.utils import MyPaginator
-from .models import User, Vehicle
+from .models import User, Vehicle, Dept
 from .decorator import login_check
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
@@ -9,8 +9,6 @@ import random
 import io
 import hashlib
 import time
-
-# Create your views here.
 
 
 # 显示登录页面
@@ -218,6 +216,23 @@ def vehicle(request):
     number = request.GET.get('number', '')
     dept_id = int(request.GET.get('dept', '0'))
 
+    # 获取用户选择的车辆查询状态, 排查页面默认限制所有未排查车辆
+    status = int(request.GET.get('status', 1))
+
+    is_card = int(request.GET.get('is_card', 2))
+    is_archive = int(request.GET.get('is_archive', 2))
+
+    # 根据不同状态过滤车辆
+    if status != 0:
+        vehicle_list = vehicle_list.filter(status=status)
+
+    # 是否发卡, 建档
+    if is_card != 2:
+        vehicle_list = vehicle_list.filter(is_card=is_card)
+
+    if is_archive != 2:
+        vehicle_list = vehicle_list.filter(is_archive=is_archive)
+
     # 在结果集中搜索包含搜索信息的车辆, 车辆搜索功能不完善, 指数如车牌号,不要输入号牌所在地
     if number != '':
         vehicle_list = vehicle_list.filter(number__contains=number)
@@ -232,12 +247,16 @@ def vehicle(request):
     mp = MyPaginator()
     mp.paginate(vehicle_list, 10, page_num)
 
-    context = {'mp': mp, 'number': number, 'dept': dept_id}
+    context = {'mp': mp, 'number': number, 'dept': dept_id, 'status': status, 'is_card': is_card,
+               'is_archive': is_archive}
 
     # 保存页面状态到session
     request.session['number'] = number
     request.session['dept'] = dept_id
     request.session['page_num'] = page_num
+    request.session['status'] = status
+    request.session['is_card'] = is_card
+    request.session['is_archive'] = is_archive
 
     return render(request, 'vehicle.html', context)
 
@@ -254,6 +273,8 @@ def vehicle_modify(request):
     is_secure = request.GET.get('is_secure', '0')
     secure = request.GET.get('secure', '')
 
+    d_dept_id = request.session.get('user_id', '')
+
     try:
         # 根据id查询车辆
         car = Vehicle.objects.get(id=vehicle_id)
@@ -266,6 +287,7 @@ def vehicle_modify(request):
         car.secure = secure
         car.status = 2
         car.d_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+        car.d_dept_id = d_dept_id
 
         car.save()
     except Exception as e:
@@ -275,7 +297,11 @@ def vehicle_modify(request):
     number = request.session.get('number', '')
     dept = request.session.get('dept', '')
     page_num = request.session.get('page_num', '')
-    url = '/vehicle?number=%s&page_num=%s&dept=%s' % (number, page_num, dept)
+    status = request.session.get('status', '')
+    is_card = request.session.get('is_card', '')
+    is_archive = request.session.get('is_archive', '')
+    url = '/vehicle?number=%s&page_num=%s&dept=%s&status=%s&is_card=%s&is_archive=%s' % (number, page_num, dept, status,
+                                                                                         is_card, is_archive)
 
     return HttpResponseRedirect(url)
 
@@ -298,17 +324,19 @@ def verify_modify(request):
         car.driver = driver
         car.d_phone = d_phone
         car.discovery = discovery
-        car.is_card = is_card
-        car.is_archive = is_archive
         car.is_secure = is_secure
         car.secure = secure
-        car.status = 3
 
-        if is_card:
+        if is_card == 1 and car.is_card == 0:
+            car.is_card = is_card
             car.c_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
 
-        if is_archive:
+        if is_archive == 1 and car.is_archive == 0:
+            car.is_archive = is_archive
             car.a_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+
+        if is_card and is_archive and not is_secure:
+            car.status = 3
 
         car.save()
     except Exception as e:
@@ -362,7 +390,7 @@ def account_modify(request):
     username = request.POST.get('username')                 # 帐号
     password = request.POST.get('password')                 # 密码 不能使用'########'
     dept_id = int(request.POST.get('dept', '1'))            # 部门
-    print(dept_id)
+
     # 查询用户
     user = User.objects.get(id=user_id)
     user.username = username
@@ -425,3 +453,36 @@ def account_delete(request):
     url = '/account?search_name=%s&page_num=%s' % (search_name, page_num)
 
     return HttpResponseRedirect(url)
+
+
+# 显示数据统计页面
+def statistic(request):
+    # 全市统计
+    dept_name = '全市'
+    c_total = Vehicle.objects.all().count()
+    c_archive = Vehicle.objects.filter(is_archive=True).count()
+    c_card = Vehicle.objects.filter(is_card=True).count()
+    c_dis_src = Vehicle.objects.filter(discovery=2).count()
+    c_dis_rod = Vehicle.objects.filter(discovery=1).count()
+
+    # 建立返回数据列表
+    data_list = [(dept_name, c_total, c_archive, c_card, c_dis_src, c_dis_rod)]
+
+    # 读取全部支队信息
+    dept_list = Dept.objects.all().exclude(id=1)
+
+    # 读取各支队统计数据
+    for dept in dept_list:
+        dept_name = dept.dept_name
+        c_total = Vehicle.objects.filter(dept_id=dept.id).count()
+        c_archive = Vehicle.objects.filter(dept_id=dept.id).filter(is_archive=True).count()
+        c_card = Vehicle.objects.filter(dept_id=dept.id).filter(is_card=True).count()
+        c_dis_src = Vehicle.objects.filter(dept_id=dept.id).filter(discovery=2).count()
+        c_dis_rod = Vehicle.objects.filter(dept_id=dept.id).filter(discovery=1).count()
+
+        # 加入返回数据列表
+        data_list.append((dept_name, c_total, c_archive, c_card, c_dis_src, c_dis_rod))
+
+    context = {'data_list': data_list}
+
+    return render(request, 'statistic.html', context)

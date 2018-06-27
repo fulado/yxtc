@@ -15,5 +15,6 @@ urlpatterns = [
     path('account_modify/', views.account_modify),
     path('account_delete/', views.account_delete),
     path('is_user_exist/', views.is_user_exist),
+    path('statistic/', views.statistic),
     path('', views.login),
 ]

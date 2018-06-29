@@ -102,6 +102,13 @@
     </div>
     <div class="table_container">
         <div class="search_input">
+            <form action="/verify" method="GET" style="display: inline-block;">
+                <label for="ss">时间范围</label>
+                <input type="text" class="datetime-picker" name="deliver_time_begin" value="{{ deliver_time_begin }}">
+                <span>~&nbsp;&nbsp;</span>
+                <input type="text" class="datetime-picker" name="deliver_time_end" value="{{ deliver_time_end }}">
+                <input type="submit" class="find_btn" value="查询" style="padding: 0px;"/>
+            </form>
         </div>
         <!--检索结果-->
         <table class="table_box" id="table_box">
@@ -147,3 +154,37 @@
 <script type="text/javascript" src="/static/js/md5.js"></script>
 <script type="text/javascript" src="/static/js/jquery.darktooltip.js"></script>
 </html>
+
+<script type="text/javascript">
+    $(function() {
+        // 日期组件初始化
+        $('.datetime-picker').datetimepicker({
+            language: 'zh-CN',          //显示中文
+            format: 'yyyy-mm-dd',       //显示格式
+            minView: "month",           //设置只显示到月份
+            initialDate: new Date(),    //初始化当前日期
+            autoclose: true,            //选中自动关闭
+            todayBtn: true              //显示今日按钮
+        });
+
+        // 选择的开始时间不能大于结束时间
+        $('.datetime-picker').eq(0).datetimepicker().click(function() {
+            var endTime = $('.datetime-picker').eq(1).val();
+            $('.datetime-picker').eq(0).datetimepicker("setEndDate", endTime)
+        });
+        $('.datetime-picker').eq(2).datetimepicker().click(function() {
+            var endTime = $('.datetime-picker').eq(3).val();
+            $('.datetime-picker').eq(2).datetimepicker("setEndDate", endTime)
+        });
+
+        // 选择的结束时间不能小于开始时间
+        $('.datetime-picker').eq(1).datetimepicker().click(function() {
+            var startTime = $('.datetime-picker').eq(0).val();
+            $('.datetime-picker').eq(1).datetimepicker("setStartDate", startTime)
+        });
+        $('.datetime-picker').eq(3).datetimepicker().click(function() {
+            var startTime = $('.datetime-picker').eq(2).val();
+            $('.datetime-picker').eq(3).datetimepicker("setStartDate", startTime)
+        });
+    });
+</script>

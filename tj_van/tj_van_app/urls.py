@@ -16,5 +16,7 @@ urlpatterns = [
     path('account_delete/', views.account_delete),
     path('is_user_exist/', views.is_user_exist),
     path('statistic/', views.statistic),
+    path('check/', views.check),
+    path('check_modify/', views.check_modify),
     path('', views.login),
 ]

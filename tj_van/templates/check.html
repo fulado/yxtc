@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <!-- 目前仅限360急速浏览 webkit:急速  ie-comp:ie兼容模式   ie-stand: ie标准模式 -->
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/initial.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/account_number.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/modle.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/paging.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/darktooltip.css"/>
+
+    <style type="text/css">
+        .table_container .search_input select{
+            width: 150px;
+            height: 24px;
+            border-radius: 4px;
+            padding-left: 10px;
+            background-color: #f9f9f9;
+            border: solid 1px #eeeeee;
+            margin-right: 10px;
+            outline: none;
+        }
+
+        /* 模态框 */
+        .my-modal-dialog{
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            margin: auto;
+            width: 460px;
+            height: 698px;
+            display: none;
+        }
+
+        .my-modal-title{
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .my-modal-body select,input{
+            width: 200px;
+            height: 30px;
+            padding-left: 5px;
+            border-radius: 4px;
+        }
+
+        .my-modal-body p{
+            text-align: center;
+        }
+
+        .my-modal-body table span{
+            text-align: justify;
+            text-align-last:justify;
+            display: inline-block;
+            width:100px;
+        }
+
+        .my-modal-body table,
+        .my-modal-body tr,
+        .my-modal-body td{
+            margin: auto;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .my-modal-footer{
+            margin-top: 20px;
+        }
+        .my-modal-footer .btn{
+            margin-left: 0px;
+        }
+
+        .pop-up1 .btndiv input,.pop-up1 .btndiv button{
+         display: inline-block;
+         background-color: #25b4b2;
+         border: solid 1px #189694;
+         color: #fff;
+         margin-left: 160px;
+         background: #139b99;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+<div class="table_wrapper">
+    <div class="table_head">
+        <span>车辆排查</span>
+    </div>
+    <div class="table_container">
+        <div class="search_input">
+            <form action="/check" method="GET" style="display: inline-block;">
+                <label for="ss">车辆搜索</label>
+                <input type="text" placeholder="输入车牌号码" name="number" value="{{ number }}" id="ss"/>
+                <input type="submit" class="find_btn" value="查询" style="padding: 0px;"/>
+            </form>
+        </div>
+
+        <!-- 排查车辆 -->
+        <div class="pop-up modify-vehicle my-modal-dialog" style="width: 800px; display: inline-block;">
+            <div class="my-modal-title">
+                <p>车辆排查</p>
+            </div>
+            <div class="my-modal-body">
+                <form action="#" method="GET">
+                    <table>
+                        <tr>
+                            <td colspan="4"><p style="padding: 8px;">车辆信息</p></td>
+                        </tr>
+                        <tr>
+                            <td><span>号牌号码</span></td>
+                            <td>
+                                <input type="text" placeholder="号牌号码" value="{{ vehicle.number|default:'' }}">
+                            </td>
+                            <td><span>车辆品牌</span></td>
+                            <td>
+                                <input type="text" placeholder="车辆品牌" value="{{ vehicle.brand }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span>车辆类型</span></td>
+                            <td>
+                                <input type="text" placeholder="车辆类型" value="{{ vehicle.v_type }}">
+                            </td>
+                            <td><span>车辆识别代码</span></td>
+                            <td>
+                                <input type="text" placeholder="车辆识别代码" value="{{ vehicle.vin }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span>所有人</span></td>
+                            <td>
+                                <input type="text" placeholder="所有人" value="{{ vehicle.owner }}">
+                            </td>
+                            <td><span>身份证明号码</span></td>
+                            <td>
+                                <input type="text" placeholder="身份证明号码" value="{{ vehicle.p_id }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span>详细地址</span></td>
+                            <td colspan="3">
+                                <input type="text" placeholder="详细地址" value="{{ vehicle.address }}" style="width: 540px;">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span>联系电话</span></td>
+                            <td>
+                                <input type="text" placeholder="联系电话" value="{{ vehicle.phone|default:'' }}">
+                            </td>
+                            <td><span>手机号</span></td>
+                            <td>
+                                <input type="text" placeholder="手机号" value="{{ vehicle.mobile|default:'' }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span>所属辖区</span></td>
+                            <td>
+                                <input type="text" placeholder="所属辖区" value="{{ vehicle.dept.dept_name }}">
+                            </td>
+                            <td><span>车辆状态</span></td>
+                            <td>
+                                <input type="text" placeholder="车辆状态" class="status"
+                                       value="{% if vehicle.status == 1 %}未排查{% elif vehicle.status == 2 %}任务办理中{% elif vehicle.status == 3 %}已排查{% else %}任务完成{% endif %}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><p style="padding: 8px;">排查信息</p></td>
+                        </tr>
+                        <tr>
+                            <td><span>驾驶员</span></td>
+                            <td>
+                                <input type="text" name="driver" placeholder="驾驶员" value="{{ vehicle.driver|default:'' }}">
+                            </td>
+                            <td><span>驾驶员电话</span></td>
+                            <td>
+                                <input type="text" name="d_phone" placeholder="驾驶员电话" value="{{ vehicle.d_phone|default:'' }}">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span>排查方式</span></td>
+                            <td>
+                                <select name="discovery" placeholder="请选择排查方式">
+                                    <option value="0" {% if vehicle.discovery == 0 %}selected{% endif %}></option>
+                                    <option value="1" {% if vehicle.discovery == 1 %}selected{% endif %}>路面排查</option>
+                                    <option value="2" {% if vehicle.discovery == 2 %}selected{% endif %}>源头排查</option>
+                                </select>
+                            </td>
+                            <td><span>是否存在隐患</span></td>
+                            <td>
+                                <select name="is_secure" placeholder="请选择是否存在安全隐患">
+                                    <option value="0" {% if vehicle.is_secure == 0 %}selected{% endif %}>否</option>
+                                    <option value="1" {% if vehicle.is_secure == 1 %}selected{% endif %}>是</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span>是否已发卡</span></td>
+                            <td>
+                                <select name="is_card" placeholder="请选择是否已发卡">
+                                    <option value="0" {% if vehicle.is_card == 0 %}selected{% endif %}>否</option>
+                                    <option value="1" {% if vehicle.is_card == 1 %}selected{% endif %}>是</option>
+                                </select>
+                            </td>
+                            <td rowspan="3"><span>隐患内容</span></td>
+                            <td rowspan="3">
+                                <textarea name="secure" id="reason" placeholder="请填写安全隐患详情" style="resize:none; border-radius: 4px; background-color: #f9f9f9;border: solid 1px #eeeeee;outline: none;padding: 10px;width:200px;height:100px">{{ vehicle.secure|default:'' }}</textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                             <td><span>是否已建档</span></td>
+                            <td>
+                                <select name="is_archive" placeholder="请选择是否已建档">
+                                    <option value="0" {% if vehicle.is_archive == 0 %}selected{% endif %}>否</option>
+                                    <option value="1" {% if vehicle.is_archive == 1 %}selected{% endif %}>是</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="vehicle_id" value="{{ vehicle.id }}">
+                    <div class="my-modal-footer">
+                        <div class="clickbtn" style="text-align: center;width: 800px">
+                            <button type="button" class="btn save">提交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="mask" style="display: none"></div>
+</body>
+<script type="text/javascript" src="/static/js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript" src="/static/js/through.js"></script>
+<script type="text/javascript" src="/static/js/query.js"></script>
+<script type="text/javascript" src="/static/js/paging.js"></script>
+<script type="text/javascript" src="/static/js/md5.js"></script>
+<script type="text/javascript" src="/static/js/jquery.darktooltip.js"></script>
+
+<script type="text/javascript">
+    $(function() {
+        // 保存编辑车辆
+        $('.modify-vehicle .save').click(function() {
+
+            if ($('.modify-vehicle .status').val() != '未排查') {
+                alert('该车已提交过排查信息，不能再次提交')
+            }
+            else if (confirm('是否确认提交该车辆排查信息？')) {
+                $('.modify-vehicle form').prop('action', '/check_modify');
+                $('.modify-vehicle form').submit();
+                $('.modify-vehicle').hide();
+                $('.mask').hide();
+            }
+        });
+    });
+</script>
+</html>

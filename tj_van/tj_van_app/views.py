@@ -160,7 +160,7 @@ def account(request):
     return render(request, 'account.html', context)
 
 
-# 显示审核页面
+# 显示任务办理页面
 @login_check
 def verify(request):
     # 获取session中的user_id,
@@ -179,7 +179,9 @@ def verify(request):
     status = int(request.GET.get('status', 2))
 
     # 根据不同状态过滤车辆
-    if status != 0:
+    if status == 2:
+        vehicle_list = vehicle_list.filter(status__in=[2, 3])
+    else:
         vehicle_list = vehicle_list.filter(status=status)
 
     # 获取车辆搜索信息
@@ -267,10 +269,10 @@ def vehicle_modify(request):
     vehicle_id = request.GET.get('vehicle_id', '')
     driver = request.GET.get('driver', '')
     d_phone = request.GET.get('d_phone', '')
-    discovery = request.GET.get('discovery', '0')
-    is_card = request.GET.get('is_card', '0')
-    is_archive = request.GET.get('is_archive', '0')
-    is_secure = request.GET.get('is_secure', '0')
+    discovery = int(request.GET.get('discovery', '0'))
+    is_card = int(request.GET.get('is_card', '0'))
+    is_archive = int(request.GET.get('is_archive', '0'))
+    is_secure = int(request.GET.get('is_secure', '0'))
     secure = request.GET.get('secure', '')
 
     d_dept_id = request.session.get('user_id', '')
@@ -281,13 +283,25 @@ def vehicle_modify(request):
         car.driver = driver
         car.d_phone = d_phone
         car.discovery = discovery
-        car.is_card = is_card
-        car.is_archive = is_archive
         car.is_secure = is_secure
         car.secure = secure
-        car.status = 2
         car.d_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
         car.d_dept_id = d_dept_id
+
+        if is_card == 1 and car.is_card == 0:
+            car.is_card = is_card
+            car.c_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+
+        if is_archive == 1 and car.is_archive == 0:
+            car.is_archive = is_archive
+            car.a_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+
+        if is_card == 1 and is_archive == 1 and is_secure == 0:
+            car.status = 4
+        elif is_card == 1 and is_archive == 1 and is_secure == 1:
+            car.status = 3
+        else:
+            car.status = 2
 
         car.save()
     except Exception as e:
@@ -335,8 +349,12 @@ def verify_modify(request):
             car.is_archive = is_archive
             car.a_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
 
-        if is_card and is_archive and not is_secure:
+        if is_card == 1 and is_archive == 1 and is_secure == 0:
+            car.status = 4
+        elif is_card == 1 and is_archive == 1 and is_secure == 1:
             car.status = 3
+        else:
+            car.status = 2
 
         car.save()
     except Exception as e:
@@ -477,8 +495,8 @@ def statistic(request):
         c_total = Vehicle.objects.filter(dept_id=dept.id).count()
         c_archive = Vehicle.objects.filter(dept_id=dept.id).filter(is_archive=True).count()
         c_card = Vehicle.objects.filter(dept_id=dept.id).filter(is_card=True).count()
-        c_dis_src = Vehicle.objects.filter(dept_id=dept.id).filter(discovery=2).count()
-        c_dis_rod = Vehicle.objects.filter(dept_id=dept.id).filter(discovery=1).count()
+        c_dis_src = Vehicle.objects.filter(d_dept_id=dept.id).filter(discovery=2).count()
+        c_dis_rod = Vehicle.objects.filter(d_dept_id=dept.id).filter(discovery=1).count()
 
         # 加入返回数据列表
         data_list.append((dept_name, c_total, c_archive, c_card, c_dis_src, c_dis_rod))
@@ -486,3 +504,85 @@ def statistic(request):
     context = {'data_list': data_list}
 
     return render(request, 'statistic.html', context)
+
+
+# 显示车辆排查页面
+def check(request):
+    # 查询所有车辆数据
+    vehicle_list = Vehicle.objects.all().order_by('id')
+
+    # 获取车辆搜索信息
+    number = request.GET.get('number', '')
+
+    # 在结果集中搜索包含搜索信息的车辆, 车辆搜索功能不完善, 指数如车牌号,不要输入号牌所在地
+    if number != '':
+        try:
+            vehicle_info = vehicle_list.get(number__contains=number)
+        except Exception as e:
+            print(e)
+            context = {'number': number}
+        else:
+            context = {'vehicle': vehicle_info, 'number': number}
+
+        # 保存当前页面状态到session
+        request.session['number'] = number
+
+        return render(request, 'check.html', context)
+    else:
+        return render(request, 'check.html')
+
+
+# 从车辆排查页面提交车辆排查信息
+def check_modify(request):
+    # 获取用户提交的车辆信息
+    vehicle_id = request.GET.get('vehicle_id', '')
+    driver = request.GET.get('driver', '')
+    d_phone = request.GET.get('d_phone', '')
+    discovery = int(request.GET.get('discovery', '0'))
+    is_card = int(request.GET.get('is_card', '0'))
+    is_archive = int(request.GET.get('is_archive', '0'))
+    is_secure = int(request.GET.get('is_secure', '0'))
+    secure = request.GET.get('secure', '')
+
+    d_dept_id = request.session.get('user_id', '')
+
+    try:
+        # 根据id查询车辆
+        car = Vehicle.objects.get(id=vehicle_id)
+        car.driver = driver
+        car.d_phone = d_phone
+        car.discovery = discovery
+        car.is_secure = is_secure
+        car.secure = secure
+        car.d_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+        car.d_dept_id = d_dept_id
+
+        if is_card == 1 and car.is_card == 0:
+            car.is_card = is_card
+            car.c_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+
+        if is_archive == 1 and car.is_archive == 0:
+            car.is_archive = is_archive
+            car.a_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+
+        if is_card == 1 and is_archive == 1 and is_secure == 0:
+            car.status = 4
+        elif is_card == 1 and is_archive == 1 and is_secure == 1:
+            car.status = 3
+        else:
+            car.status = 2
+
+        print(is_card)
+        print(is_archive)
+        print(is_secure)
+        print(car.status)
+
+        car.save()
+    except Exception as e:
+        print(e)
+
+    # 构建返回url
+    number = request.session.get('number', '')
+    url = '/check?number=%s' % number
+
+    return HttpResponseRedirect(url)

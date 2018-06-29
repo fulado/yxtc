@@ -98,7 +98,7 @@
 <body>
 <div class="table_wrapper">
     <div class="table_head">
-        <span>车辆排查</span>
+        <span>车辆查询</span>
     </div>
     <div class="table_container">
         <div class="search_input">
@@ -132,8 +132,8 @@
                 <label for="pwd">排查状况</label>
                 <select name="status">
                     <option value="1" {% if status == 1 %}selected{% endif %}>未排查车辆</option>
-                    <option value="2" {% if status == 2 %}selected{% endif %}>待办理车辆</option>
-                    <option value="3" {% if status == 3 %}selected{% endif %}>办理完成车辆</option>
+                    <option value="2" {% if status == 3 %}selected{% endif %}>已排查理车辆</option>
+                    <option value="3" {% if status == 4 %}selected{% endif %}>任务完成车辆</option>
                     <option value="0" {% if status == 0 %}selected{% endif %}>全部车辆</option>
                 </select>
                 <label for="pwd">发卡状况</label>

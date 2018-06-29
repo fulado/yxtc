@@ -98,8 +98,8 @@
                 <label for="ss">车辆搜索</label>
                 <input type="text" placeholder="输入车牌号码" name="number" value="{{ number }}" id="ss"/>
                 <select name="status">
-                    <option value="2" {% if status == 2 %}selected{% endif %}>待办理车辆</option>
-                    <option value="3" {% if status == 3 %}selected{% endif %}>办理完成车辆</option>
+                    <option value="2" {% if status == 2 %}selected{% endif %}>任务待办车辆</option>
+                    <option value="4" {% if status == 4 %}selected{% endif %}>任务完成车辆</option>
                 </select>
                 <input type="submit" class="find_btn" value="查询" style="padding: 0px;"/>
             </form>

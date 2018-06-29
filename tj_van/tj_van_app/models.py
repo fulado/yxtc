@@ -37,7 +37,7 @@ class Vehicle(models.Model):
     c_time = models.DateTimeField(null=True, blank=True)  # 发卡时间
     a_time = models.DateTimeField(null=True, blank=True)  # 建档时间
     dept = models.ForeignKey(Dept, on_delete=models.CASCADE, null=True, blank=True)  # 所属支队
-    status = models.IntegerField(default=1, null=True, blank=True)  # 车辆状态: 1-未排查, 2-办理中, 3-办理完成
+    status = models.IntegerField(default=1, null=True, blank=True)  # 车辆状态: 1-未排查, 2-任务办理中, 3-已排查, 4-任务完成
     secure = models.CharField(max_length=200, null=True, blank=True)  # 隐患内容
     is_secure = models.BooleanField(default=False)  # 是否存在安全隐患
 

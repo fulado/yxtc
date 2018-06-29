@@ -44,10 +44,12 @@
 {#        <li class="main">任务办理</li>#}
         <li class="down_menu" data-url="/verify">任务办理</li>
         {% endif %}
-        {% if user.authority != 1 %}
-{#        <li class="main">车辆管理</li>#}
-        <li class="down_menu" data-url="/vehicle">车辆排查</li>
+        {% if user.authority != 1%}
+{#        <li class="main">任务办理</li>#}
+        <li class="down_menu" data-url="/check">车辆排查</li>
         {% endif %}
+{#        <li class="main">车辆管理</li>#}
+        <li class="down_menu" data-url="/vehicle">车辆查询</li>
         {% if user.authority != 2 %}
 {#        <li class="main">数据统计</li>#}
         <li class="down_menu" data-url="/statistic">数据统计</li>

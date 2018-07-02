@@ -102,11 +102,11 @@
     </div>
     <div class="table_container">
         <div class="search_input">
-            <form action="/verify" method="GET" style="display: inline-block;">
+            <form action="/statistic" method="GET" style="display: inline-block;">
                 <label for="ss">时间范围</label>
-                <input type="text" class="datetime-picker" name="deliver_time_begin" value="{{ deliver_time_begin }}">
+                <input type="text" class="datetime-picker" name="time_begin" value="{{ time_begin }}">
                 <span>~&nbsp;&nbsp;</span>
-                <input type="text" class="datetime-picker" name="deliver_time_end" value="{{ deliver_time_end }}">
+                <input type="text" class="datetime-picker" name="time_end" value="{{ time_end }}">
                 <input type="submit" class="find_btn" value="查询" style="padding: 0px;"/>
             </form>
         </div>

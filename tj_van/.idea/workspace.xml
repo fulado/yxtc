@@ -17,8 +17,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tj_van_app/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+            <state relative-caret-position="546">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -29,8 +29,17 @@
       <file leaf-file-name="vehicle.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/vehicle.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
+            <state relative-caret-position="26">
               <caret line="103" column="9" selection-start-line="103" selection-start-column="9" selection-end-line="103" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tj_van/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1708">
+              <caret line="129" column="50" selection-start-line="129" selection-start-column="50" selection-end-line="129" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -39,7 +48,7 @@
         <entry file="file://$PROJECT_DIR$/templates/main.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="442">
-              <caret line="17" column="9" lean-forward="true" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+              <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -47,8 +56,8 @@
       <file leaf-file-name="check.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/check.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="430">
-              <caret line="221" column="33" lean-forward="true" selection-start-line="221" selection-start-column="33" selection-end-line="221" selection-end-column="33" />
+            <state relative-caret-position="5746">
+              <caret line="221" column="33" selection-start-line="221" selection-start-column="33" selection-end-line="221" selection-end-column="33" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#0;n#td#1;n#tr#4;n#table#0;n#form#0;n#div#1;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -60,55 +69,34 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tj_van_app/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="33" column="83" lean-forward="true" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="83" />
+            <state relative-caret-position="703">
+              <caret line="36" column="7" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nginx_example.conf" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conf/nginx_example.conf">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1170">
-              <caret line="45" column="36" selection-start-line="45" selection-start-column="36" selection-end-line="45" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="nginx.conf" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/conf/nginx.conf">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2028">
-              <caret line="78" column="38" selection-start-line="78" selection-start-column="38" selection-end-line="78" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tj_van_app/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="598">
-              <caret line="498" column="89" lean-forward="true" selection-start-line="498" selection-start-column="89" selection-end-line="498" selection-end-column="89" />
+            <state relative-caret-position="382">
+              <caret line="583" column="54" selection-start-line="583" selection-start-column="35" selection-end-line="583" selection-end-column="54" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
-                <element signature="e#4072#5327#0" />
-                <element signature="e#6816#8330#0" />
-                <element signature="e#9815#10589#0" />
-                <element signature="e#10632#11541#0" />
-                <element signature="e#11590#11902#0" />
-                <element signature="e#11947#12383#0" />
-                <element signature="e#13639#14155#0" />
-                <element signature="e#15035#17016#0" />
+                <element signature="e#10521#11295#0" />
+                <element signature="e#11338#12247#0" />
+                <element signature="e#12296#12608#0" />
+                <element signature="e#12653#13089#0" />
+                <element signature="e#13132#15223#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="statistic.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="statistic.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/statistic.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="112" column="19" lean-forward="true" selection-start-line="112" selection-start-column="19" selection-end-line="112" selection-end-column="19" />
+            <state relative-caret-position="-120">
+              <caret line="108" column="65" selection-start-line="108" selection-start-column="65" selection-end-line="108" selection-end-column="65" />
             </state>
           </provider>
         </entry>
@@ -116,8 +104,8 @@
       <file leaf-file-name="verify.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/verify.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="533">
-              <caret line="105" column="14" lean-forward="true" selection-start-line="95" selection-start-column="8" selection-end-line="105" selection-end-column="14" />
+            <state relative-caret-position="299">
+              <caret line="264" column="56" lean-forward="true" selection-start-line="264" selection-start-column="56" selection-end-line="264" selection-end-column="56" />
             </state>
           </provider>
         </entry>
@@ -138,6 +126,8 @@
       <find>setUserInfo</find>
       <find>modify-vehicle</find>
       <find>print</find>
+      <find>str</find>
+      <find>strf</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -153,13 +143,13 @@
         <option value="$PROJECT_DIR$/conf/uwsgi.ini" />
         <option value="$PROJECT_DIR$/conf/nginx.conf" />
         <option value="$PROJECT_DIR$/tj_van_app/models.py" />
-        <option value="$PROJECT_DIR$/templates/verify.html" />
         <option value="$PROJECT_DIR$/tj_van_app/urls.py" />
         <option value="$PROJECT_DIR$/templates/check.html" />
-        <option value="$PROJECT_DIR$/tj_van_app/views.py" />
         <option value="$PROJECT_DIR$/templates/vehicle.html" />
         <option value="$PROJECT_DIR$/templates/main.html" />
         <option value="$PROJECT_DIR$/templates/statistic.html" />
+        <option value="$PROJECT_DIR$/tj_van_app/views.py" />
+        <option value="$PROJECT_DIR$/templates/verify.html" />
       </list>
     </option>
   </component>
@@ -296,8 +286,8 @@
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32961932" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.20705664" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1838763" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.27762303" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18608503" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -321,7 +311,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="8" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -338,14 +328,11 @@
           <caret line="369" lean-forward="true" selection-start-line="369" selection-end-line="369" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
-            <element signature="e#4072#5327#0" />
-            <element signature="e#6816#8330#0" />
-            <element signature="e#9815#10589#0" />
-            <element signature="e#10632#11541#0" />
-            <element signature="e#11590#11902#0" />
-            <element signature="e#11947#12383#0" />
-            <element signature="e#13639#14155#0" />
-            <element signature="e#15035#17016#0" />
+            <element signature="e#10521#11295#0" />
+            <element signature="e#11338#12247#0" />
+            <element signature="e#12296#12608#0" />
+            <element signature="e#12653#13089#0" />
+            <element signature="e#13132#15223#0" />
           </folding>
         </state>
       </provider>
@@ -394,14 +381,11 @@
           <caret line="234" column="38" lean-forward="true" selection-start-line="234" selection-start-column="38" selection-end-line="234" selection-end-column="38" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
-            <element signature="e#4072#5327#0" />
-            <element signature="e#6816#8330#0" />
-            <element signature="e#9815#10589#0" />
-            <element signature="e#10632#11541#0" />
-            <element signature="e#11590#11902#0" />
-            <element signature="e#11947#12383#0" />
-            <element signature="e#13639#14155#0" />
-            <element signature="e#15035#17016#0" />
+            <element signature="e#10521#11295#0" />
+            <element signature="e#11338#12247#0" />
+            <element signature="e#12296#12608#0" />
+            <element signature="e#12653#13089#0" />
+            <element signature="e#13132#15223#0" />
           </folding>
         </state>
       </provider>
@@ -450,14 +434,11 @@
           <caret line="173" column="59" selection-start-line="173" selection-start-column="46" selection-end-line="173" selection-end-column="59" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
-            <element signature="e#4072#5327#0" />
-            <element signature="e#6816#8330#0" />
-            <element signature="e#9815#10589#0" />
-            <element signature="e#10632#11541#0" />
-            <element signature="e#11590#11902#0" />
-            <element signature="e#11947#12383#0" />
-            <element signature="e#13639#14155#0" />
-            <element signature="e#15035#17016#0" />
+            <element signature="e#10521#11295#0" />
+            <element signature="e#11338#12247#0" />
+            <element signature="e#12296#12608#0" />
+            <element signature="e#12653#13089#0" />
+            <element signature="e#13132#15223#0" />
           </folding>
         </state>
       </provider>
@@ -538,13 +519,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tj_van_app/utils.py" />
-    <entry file="file://$PROJECT_DIR$/tj_van/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3354">
-          <caret line="129" column="50" selection-start-line="129" selection-start-column="50" selection-end-line="129" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tj_van_app/decorator.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="338">
@@ -597,8 +571,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tj_van_app/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
+        <state relative-caret-position="546">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -607,8 +581,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/check.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="221" column="33" lean-forward="true" selection-start-line="221" selection-start-column="33" selection-end-line="221" selection-end-column="33" />
+        <state relative-caret-position="5746">
+          <caret line="221" column="33" selection-start-line="221" selection-start-column="33" selection-end-line="221" selection-end-column="33" />
           <folding>
             <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#0;n#td#1;n#tr#4;n#table#0;n#form#0;n#div#1;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -616,56 +590,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tj_van_app/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="33" column="83" lean-forward="true" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tj_van_app/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="598">
-          <caret line="498" column="89" lean-forward="true" selection-start-line="498" selection-start-column="89" selection-end-line="498" selection-end-column="89" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-            <element signature="e#4072#5327#0" />
-            <element signature="e#6816#8330#0" />
-            <element signature="e#9815#10589#0" />
-            <element signature="e#10632#11541#0" />
-            <element signature="e#11590#11902#0" />
-            <element signature="e#11947#12383#0" />
-            <element signature="e#13639#14155#0" />
-            <element signature="e#15035#17016#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/main.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
-          <caret line="17" column="9" lean-forward="true" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/vehicle.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="103" column="9" selection-start-line="103" selection-start-column="9" selection-end-line="103" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/verify.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="533">
-          <caret line="105" column="14" lean-forward="true" selection-start-line="95" selection-start-column="8" selection-end-line="105" selection-end-column="14" />
+          <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/statistic.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="112" column="19" lean-forward="true" selection-start-line="112" selection-start-column="19" selection-end-line="112" selection-end-column="19" />
+        <state relative-caret-position="-120">
+          <caret line="108" column="65" selection-start-line="108" selection-start-column="65" selection-end-line="108" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tj_van_app/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="703">
+          <caret line="36" column="7" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/vehicle.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="103" column="9" selection-start-line="103" selection-start-column="9" selection-end-line="103" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tj_van/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1708">
+          <caret line="129" column="50" selection-start-line="129" selection-start-column="50" selection-end-line="129" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/verify.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="264" column="56" lean-forward="true" selection-start-line="264" selection-start-column="56" selection-end-line="264" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tj_van_app/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="583" column="54" selection-start-line="583" selection-start-column="35" selection-end-line="583" selection-end-column="54" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+            <element signature="e#10521#11295#0" />
+            <element signature="e#11338#12247#0" />
+            <element signature="e#12296#12608#0" />
+            <element signature="e#12653#13089#0" />
+            <element signature="e#13132#15223#0" />
+          </folding>
         </state>
       </provider>
     </entry>

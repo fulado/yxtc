@@ -475,13 +475,36 @@ def account_delete(request):
 
 # 显示数据统计页面
 def statistic(request):
+
+    # 获取起止时间
+    time_begin_get = request.GET.get('time_begin', 0)
+    time_end_get = request.GET.get('time_end', 0)
+
+    if time_begin_get == 0:
+        time_begin_get = time.strftime('%Y-%m-%d', time.localtime())
+        time_begin = time.strftime('%Y-%m-%d 00:00:00', time.localtime())
+    else:
+        time_begin = '%s 00:00:00' % time_begin_get
+
+    if time_end_get == 0:
+        time_end_get = time.strftime('%Y-%m-%d', time.localtime())
+        time_end = time.strftime('%Y-%m-%d 23:59:59', time.localtime())
+    else:
+        time_end = '%s 23:59:59' % time_end_get
+
     # 全市统计
     dept_name = '全市'
     c_total = Vehicle.objects.all().count()
-    c_archive = Vehicle.objects.filter(is_archive=True).count()
-    c_card = Vehicle.objects.filter(is_card=True).count()
-    c_dis_src = Vehicle.objects.filter(discovery=2).count()
-    c_dis_rod = Vehicle.objects.filter(discovery=1).count()
+    c_archive = Vehicle.objects.filter(is_archive=True).filter(a_time__gte=time_begin).filter(a_time__lte=time_end).\
+        count()
+    print(c_archive)
+    c_card = Vehicle.objects.filter(is_card=True).filter(c_time__gte=time_begin).filter(c_time__lte=time_end).\
+        count()
+    print(c_card)
+    c_dis_src = Vehicle.objects.filter(discovery=2).filter(d_time__gte=time_begin).filter(d_time__lte=time_end).\
+        count()
+    c_dis_rod = Vehicle.objects.filter(discovery=1).filter(d_time__gte=time_begin).filter(d_time__lte=time_end).\
+        count()
 
     # 建立返回数据列表
     data_list = [(dept_name, c_total, c_archive, c_card, c_dis_src, c_dis_rod)]
@@ -493,15 +516,19 @@ def statistic(request):
     for dept in dept_list:
         dept_name = dept.dept_name
         c_total = Vehicle.objects.filter(dept_id=dept.id).count()
-        c_archive = Vehicle.objects.filter(dept_id=dept.id).filter(is_archive=True).count()
-        c_card = Vehicle.objects.filter(dept_id=dept.id).filter(is_card=True).count()
-        c_dis_src = Vehicle.objects.filter(d_dept_id=dept.id).filter(discovery=2).count()
-        c_dis_rod = Vehicle.objects.filter(d_dept_id=dept.id).filter(discovery=1).count()
+        c_archive = Vehicle.objects.filter(dept_id=dept.id).filter(is_archive=True).filter(a_time__gte=time_begin).\
+            filter(a_time__lte=time_end).count()
+        c_card = Vehicle.objects.filter(dept_id=dept.id).filter(is_card=True).filter(c_time__gte=time_begin).\
+            filter(c_time__lte=time_end).count()
+        c_dis_src = Vehicle.objects.filter(d_dept_id=dept.id).filter(discovery=2).filter(d_time__gte=time_begin).\
+            filter(d_time__lte=time_end).count()
+        c_dis_rod = Vehicle.objects.filter(d_dept_id=dept.id).filter(discovery=1).filter(d_time__gte=time_begin).\
+            filter(d_time__lte=time_end).count()
 
         # 加入返回数据列表
         data_list.append((dept_name, c_total, c_archive, c_card, c_dis_src, c_dis_rod))
 
-    context = {'data_list': data_list}
+    context = {'data_list': data_list, 'time_begin': time_begin_get, 'time_end': time_end_get}
 
     return render(request, 'statistic.html', context)
 

@@ -18,5 +18,9 @@ urlpatterns = [
     path('statistic/', views.statistic),
     path('check/', views.check),
     path('check_modify/', views.check_modify),
+    path('import/', views.import_show),
+    path('excel_import/', views.excel_import),
+    path('update/', views.update_show),
+    path('excel_update/', views.excel_update),
     path('', views.login),
 ]

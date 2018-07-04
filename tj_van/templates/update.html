@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <!-- 目前仅限360急速浏览 webkit:急速  ie-comp:ie兼容模式   ie-stand: ie标准模式 -->
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/initial.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/account_number.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/modle.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/paging.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/darktooltip.css"/>
+
+    <style type="text/css">
+        .table_container .search_input select{
+            width: 150px;
+            height: 24px;
+            border-radius: 4px;
+            padding-left: 10px;
+            background-color: #f9f9f9;
+            border: solid 1px #eeeeee;
+            margin-right: 10px;
+            outline: none;
+        }
+        /* 模态框 */
+        .my-modal-dialog{
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            margin: auto;
+            width: 460px;
+            height: 698px;
+            display: none;
+        }
+
+        .my-modal-title{
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .my-modal-body select,input{
+            width: 200px;
+            height: 30px;
+            padding-left: 5px;
+            border-radius: 4px;
+        }
+
+        .my-modal-body p{
+            text-align: center;
+        }
+
+        .my-modal-body table span{
+            text-align: justify;
+            text-align-last:justify;
+            display: inline-block;
+            width:100px;
+        }
+
+        .my-modal-body table,
+        .my-modal-body tr,
+        .my-modal-body td{
+            margin: auto;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .my-modal-footer{
+            margin-top: 20px;
+        }
+        .my-modal-footer .btn{
+            margin-left: 0px;
+        }
+
+        a,a:active,a:visited,a:focus{
+            text-decoration: none;
+        }
+
+        .pop-up1 .btndiv input,.pop-up1 .btndiv button{
+         display: inline-block;
+         background-color: #25b4b2;
+         border: solid 1px #189694;
+         color: #fff;
+         margin-left: 160px;
+         background: #139b99;
+        }
+
+        .table_head .number_word{
+        float: right;
+        margin-right: 20px;
+        }
+
+    </style>
+    <title></title>
+</head>
+<body>
+
+<div class="table_wrapper">
+    <div class="table_head">
+        <span>排查数据导入</span>
+    </div>
+</div>
+
+<!--上传文件模态框-->
+<div class="pop-up1" style="width: 560px;height: 268px;">
+    <form action="/excel_update/" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <div class="selFile">
+            <label for="reason" style="">选择文件</label>
+            <input type="file" name="excel_file" style="outline: none;cursor: pointer; width:300px; margin-left: 100px;" accept="application/vnd.ms-excel"/>
+        </div>
+
+        <div class="btndiv" style="margin-top: 50px;">
+            <button type="button" class="btn save" style="line-height: 27px;" >导入</button>
+            <!--<input type="submit" class="btn" style="line-height: 27px;" value="导入" />-->
+            <div class="btn" id="close" style="line-height: 27px;">关闭</div>
+        </div>
+    </form>
+</div>
+
+<div class="mask" style="display: none"></div>
+</body>
+<script type="text/javascript" src="/static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<script type="text/javascript" src="/static/js/through.js"></script>
+<script type="text/javascript" src="/static/js/query.js"></script>
+<script type="text/javascript" src="/static/js/paging.js"></script>
+<script type="text/javascript" src="/static/js/md5.js"></script>
+<script type="text/javascript" src="/static/js/jquery.darktooltip.js"></script>
+
+<script type="text/javascript">
+    // 定义车牌号正则规则
+    // 大型货车&小型货车
+    var re_01 = /^[\W][A-Z][A-Z0-9]{5}$/
+    // 挂车
+    var re_15 = /^[\W][A-Z][A-Z0-9]{4}$/
+
+    $(function() {
+        // 显示增加车辆模态框
+        $('#add').click(function() {
+            $('.add-vehicle').show();
+            $('.mask').show();
+        });
+
+        // 隐藏增加车辆模态框
+        $('.add-vehicle .del').click(function() {
+            if (confirm('是否取消新增？')) {
+                $('.add-vehicle').hide();
+                $('.mask').hide();
+            }
+        });
+
+        // 显示编辑车辆信息模态框
+        $('.table_box .modify-vehicle-info').click(function() {
+            $('.modify-vehicle').show();
+            $('.mask').show();
+        });
+
+        // 隐藏编辑车辆信息模态框
+        $('.modify-vehicle .del').click(function() {
+            if ($('.modify-vehicle .clickbtn .save').css("display") == 'none'){
+                $('.modify-vehicle').hide();
+                $('.mask').hide();
+            }
+            else if (confirm('是否放弃修改？')) {
+                $('.modify-vehicle').hide();
+                $('.mask').hide();
+            }
+        });
+
+        // 日期组件初始化
+        $('.datetime-picker').datetimepicker({
+            language: 'zh-CN',          //显示中文
+            format: 'yyyy-mm-dd',       //显示格式
+            minView: "month",           //设置只显示到月份
+            initialDate: new Date(),    //初始化当前日期
+            autoclose: true,            //选中自动关闭
+            todayBtn: true              //显示今日按钮
+        });
+
+        // 保存新增车辆
+        $('.add-vehicle .save').click(function() {
+            var number = $('.add-vehicle input').eq(0).val().replace(/\s+/g,"");
+            var engine = $('.add-vehicle input').eq(1).val().replace(/\s+/g,"");
+            var vehicle_model = $('.add-vehicle input').eq(2).val().replace(/\s+/g,"");
+            var register_date = $('.add-vehicle input').eq(3).val().replace(/\s+/g,"");
+            var route = $('.add-vehicle textarea').val().replace(/\s+/g,"");
+            var vehicle_type = $('.add-vehicle select').eq(0).val();
+
+            if (!(vehicle_type == '1' || vehicle_type == '2' || vehicle_type == '15')) {
+                alert('请选择正确的车辆类型');
+            }
+            else if (number.length == 0) {
+                alert('请输入正确的号牌号码');
+            }
+            else if (vehicle_type != 15 && !re_01.test(number)) {
+                alert('车辆类型或号牌号码不正确, 请修改后保存');
+            }
+            else if (vehicle_type == 15 && !re_15.test(number)) {
+                alert('车辆类型或号牌号码不正确, 请修改后保存');
+            }
+            else if (vehicle_type != 15 && engine.length == 0) {
+                alert('请输入正确的发动机型号');
+            }
+            else if (vehicle_model.length == 0) {
+                alert('请输入正确的车辆型号');
+            }
+            else if (register_date.length == 0) {
+                alert('请选择正确的车辆注册日期');
+            }
+            else if (route.length == 0) {
+                alert('请输入正确的行驶路线');
+            }
+            else {
+                $.get('/is_vehicle_exist', {'number': number}, function(data) {
+                    if (data.result) {
+                        alert('当前号牌车辆已录入');
+                    }
+                    else if (confirm('是否保存新增车辆信息？')) {
+                        $('.add-vehicle form').submit();
+                        $('.add-vehicle').hide();
+                        $('.mask').hide();
+                    }
+                });
+            }
+        });
+
+        // 保存编辑车辆
+        $('.modify-vehicle .save').click(function() {
+            var number = $('.modify-vehicle input').eq(0).val().replace(/\s+/g,"");
+            var engine = $('.modify-vehicle input').eq(1).val().replace(/\s+/g,"");
+            var vehicle_model = $('.modify-vehicle input').eq(2).val().replace(/\s+/g,"");
+            var register_date = $('.modify-vehicle input').eq(3).val().replace(/\s+/g,"");
+            var route = $('.modify-vehicle textarea').val().replace(/\s+/g,"");
+            var vehicle_type = $('.modify-vehicle select').eq(0).val();
+
+            if (!(vehicle_type == '1' || vehicle_type == '2' || vehicle_type == '15')) {
+                alert('请选择正确的车辆类型');
+            }
+            else if (number.length == 0) {
+                alert('请输入正确的号牌号码');
+            }
+            else if (vehicle_type != 15 && !re_01.test(number)) {
+                alert('车辆类型或号牌号码不正确, 请修改后保存');
+            }
+            else if (vehicle_type == 15 && !re_15.test(number)) {
+                alert('车辆类型或号牌号码不正确, 请修改后保存');
+            }
+            else if (vehicle_type != 15 && engine.length == 0) {
+                alert('请输入正确的发动机型号');
+            }
+            else if (vehicle_model.length == 0) {
+                alert('请输入正确的车辆型号');
+            }
+            else if (register_date.length == 0) {
+                alert('请选择正确的车辆注册日期');
+            }
+            else if (route.length == 0) {
+                alert('请输入正确的行驶路线');
+            }
+            else if (confirm('是否保存车辆信息？')) {
+                $('.modify-vehicle form').prop('action', '/vehicle_modify');
+                $('.modify-vehicle form').submit();
+                $('.modify-vehicle').hide();
+                $('.mask').hide();
+            }
+        });
+
+        // 编辑车辆信息表单提交: 删除
+        $('.modify-vehicle .delete').click(function() {
+            if (confirm('是否删除该车辆信息？')) {
+                $('.modify-vehicle form').prop('action', '/vehicle_delete');
+                $('.modify-vehicle form').submit();
+                $('.modify-vehicle').hide();
+                $('.mask').hide();
+            }
+        });
+
+        // 提交车辆查询表单
+        $('.search_input .find_btn').click(function() {
+            $('.search_input form').submit();
+        });
+
+        // 显示导入车辆信息模态框
+        $('.import-excel').click(function() {
+            $('.pop-up1').show();
+            $('.mask').show();
+        });
+
+        // 导入车辆提交
+        $('.pop-up1 .btndiv button').click(function() {
+            // 判断是否选择文件
+            if ($('.pop-up1 .selFile input').val().length > 0) {
+                $('.pop-up1 form').submit();
+            } else {
+                alert('请选择需要导入的文件');
+            }
+        });
+    });
+
+    // 填充编辑车辆模态框信息
+    function setVehicleInfo(vehicle_type, number, engine, vehicle_model, register_date, route, id, status_id) {
+         $('.modify-vehicle select').eq(0).val(vehicle_type);       // 车辆类型
+         $('.modify-vehicle input').eq(0).val(number.replace("<br />",""));              // 号牌号码
+         $('.modify-vehicle input').eq(1).val(engine.replace("<br />",""));              // 发动机型号
+         $('.modify-vehicle input').eq(2).val(vehicle_model.replace("<br />",""));       // 车辆型号
+         $('.modify-vehicle input').eq(3).val(register_date);     // 车辆注册日期
+         $('.modify-vehicle textarea').val(route.replace("<br />",""));                  // 运输路线
+         $('.modify-vehicle input').eq(4).val(id);                  // 车辆id
+
+         if (status_id != '1' && status_id != '5' ) {
+            $('.modify-vehicle .clickbtn .save').hide();
+            $('.modify-vehicle .clickbtn .delete').hide();
+         } else {
+            $('.modify-vehicle .clickbtn .save').show();
+            $('.modify-vehicle .clickbtn .delete').show();
+         }
+    }
+
+    // 跳转到指定页面
+    function jump() {
+        $('#pageToolbar form').submit();
+    }
+
+    // 提交车辆, 需要判断是否已经达到上限, 并判断车辆信息是否填写完整, 挂车(15)可不填写发动机型号
+    function submit_vehicle(user_id, vehicle_id, vehicle_type, number, engine, vehicle_model, register_date, route) {
+        // 判断是否已经到达提交上限
+        $.get('/can_submit_vehicle', {'user_id': user_id}, function(data) {
+            if (!data.allow_submit) {
+                alert('每月提交申请最后期限为25日, 无法提交申请');
+            }
+            else if (!(vehicle_type == '1' || vehicle_type == '2' || vehicle_type == '15')) {
+                alert('车辆类型不正确, 请修改后提交');
+            }
+            else if (!data.result && vehicle_type == '1') {
+                alert('已经到达通行证申请上限，大型车辆不能提交申请');
+            }
+            else if (number.replace(/\s+/g,"").length == 0) {
+                alert('号牌号码不正确, 请修改后提交');
+            }
+            else if (vehicle_type != 15 && !re_01.test(number.replace(/\s+/g,""))) {
+                alert('车辆类型或号牌号码不正确, 请修改后提交');
+            }
+            else if (vehicle_type == 15 && !re_15.test(number.replace(/\s+/g,""))) {
+                alert('车辆类型或号牌号码不正确, 请修改后提交');
+            }
+            else if (vehicle_type != 15 && engine.replace(/\s+/g,"").length == 0) {
+                alert('发动机型号不正确, 请修改后提交');
+            }
+            else if (vehicle_model.replace(/\s+/g,"").length == 0) {
+                alert('车辆型号不正确, 请修改后提交');
+            }
+            else if (register_date.replace(/\s+/g,"").length == 0) {
+                alert('车辆注册日期不正确, 请修改后提交');
+            }
+            else if (route.replace(/\s+/g,"").length == 0) {
+                alert('行驶路线不正确, 请修改后提交');
+            }
+            else {
+                window.location.href = "/vehicle_submit?vehicle_id=" + vehicle_id;
+            }
+        });;
+    }
+
+    // 提交全部车辆, 判断是否到达上限, 如到达上限, 则仅提交部分车辆, 并给出提示
+    function submit_all(user_id) {
+        // 判断是否可以提交全部车辆
+        $.get('/can_submit_all', {'user_id': user_id}, function(data) {
+            could_submit = true;
+            if (data.result) {
+                if (data.error_num > 0) {
+                     alert('本次提交车辆'+ data.vehicle_num +'辆，因信息不正确无法提交车辆'+ data.error_num +'辆');
+                }
+                else {
+                    alert('已提交全部车辆');
+                }
+            }
+            else {
+                if (data.vehicle_num == -1) {
+                    alert('每月提交申请最后期限为25日, 无法提交申请');
+                    could_submit = false;
+                }
+                else if (data.error_num > 0) {
+                    alert('大型车辆超出允许提交的上限，本次共提交车辆'+ data.vehicle_num +'辆，因超限未提交大型车辆'+ data.ignore_num +'辆，因信息不正确无法提交车辆' + data.error_num +'辆');
+                }
+                else {
+                    alert('大型车辆超出允许提交的上限，本次共提交车辆'+ data.vehicle_num +'辆，因超限未提交大型车辆'+ data.ignore_num +'辆');
+                }
+            }
+
+            if (could_submit) {
+                window.location.href = "/vehicle_submit_all";
+            }
+        });
+    }
+
+    // 删除本单位全部车辆
+    function clear_all(user_id) {
+        if (confirm('是否删除全部车辆信息？')) {
+            window.location.href = "/clear_all?user_id=" + user_id;
+        }
+    }
+</script>
+</html>

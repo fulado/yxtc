@@ -9,6 +9,7 @@ import random
 import io
 import hashlib
 import time
+import xlrd
 
 
 # 显示登录页面
@@ -497,10 +498,10 @@ def statistic(request):
     c_total = Vehicle.objects.all().count()
     c_archive = Vehicle.objects.filter(is_archive=True).filter(a_time__gte=time_begin).filter(a_time__lte=time_end).\
         count()
-    print(c_archive)
+    # print(c_archive)
     c_card = Vehicle.objects.filter(is_card=True).filter(c_time__gte=time_begin).filter(c_time__lte=time_end).\
         count()
-    print(c_card)
+    # print(c_card)
     c_dis_src = Vehicle.objects.filter(discovery=2).filter(d_time__gte=time_begin).filter(d_time__lte=time_end).\
         count()
     c_dis_rod = Vehicle.objects.filter(discovery=1).filter(d_time__gte=time_begin).filter(d_time__lte=time_end).\
@@ -599,11 +600,6 @@ def check_modify(request):
         else:
             car.status = 2
 
-        print(is_card)
-        print(is_archive)
-        print(is_secure)
-        print(car.status)
-
         car.save()
     except Exception as e:
         print(e)
@@ -613,3 +609,124 @@ def check_modify(request):
     url = '/check?number=%s' % number
 
     return HttpResponseRedirect(url)
+
+
+# 显示车辆导入页面
+def import_show(request):
+    return render(request, 'import.html')
+
+
+# 导入
+def excel_import(request):
+    # 获取用户上传的excel文件, 文件不存储, 在内存中对文件进行操作
+    excel_file = request.FILES.get('excel_file')
+
+    # 打开excel文件, 直接从内存读取文件内容
+    workbook = xlrd.open_workbook(filename=None, file_contents=excel_file.read())
+    # 获得sheets列表
+    sheets = workbook.sheet_names()
+    # 获得第一个sheet对象
+    worksheet = workbook.sheet_by_name(sheets[0])
+    # 遍历
+    for i in range(1, worksheet.nrows):
+        # row = worksheet.row(i)
+        # 读取一条车辆信息
+        # ctype： 0-empty, 1-string, 2-number, 3-date, 4-boolean, 5-error
+
+        number = worksheet.cell_value(i, 0)  # 车辆类型
+
+        if Vehicle.objects.filter(number=number).exists():
+            continue
+
+        vehicle_info = Vehicle()
+
+        vehicle_info.number = number
+        vehicle_info.brand = worksheet.cell_value(i, 1)  # 车辆品牌
+        vehicle_info.v_type = worksheet.cell_value(i, 2)  # 车辆类型
+        vehicle_info.vin = worksheet.cell_value(i, 3)  # 车辆识别代号
+        vehicle_info.owner = worksheet.cell_value(i, 4)  # 所有人
+        vehicle_info.p_id = worksheet.cell_value(i, 5)  # 身份证明号码
+        vehicle_info.address = worksheet.cell_value(i, 8)  # 住所详细地址
+        vehicle_info.phone = worksheet.cell_value(i, 11)  # 联系电话
+        vehicle_info.mobile = worksheet.cell_value(i, 12)  # 手机号
+        vehicle_info.dept_id = worksheet.cell_value(i, 13)  # 所属支队id
+
+        vehicle_info.save()
+
+    return render(request, 'import.html')
+
+
+# 显示车辆更新页面
+def update_show(request):
+    return render(request, 'update.html')
+
+
+# 更新
+def excel_update(request):
+
+    # print('update start')
+    dept_list = Dept.objects.all()
+
+    # 获取用户上传的excel文件, 文件不存储, 在内存中对文件进行操作
+    excel_file = request.FILES.get('excel_file')
+
+    # 打开excel文件, 直接从内存读取文件内容
+    workbook = xlrd.open_workbook(filename=None, file_contents=excel_file.read())
+    # 获得sheets列表
+    sheets = workbook.sheet_names()
+    # 获得第一个sheet对象
+    worksheet = workbook.sheet_by_name(sheets[0])
+    # 遍历
+    for i in range(1, worksheet.nrows):
+        # row = worksheet.row(i)
+        # 读取一条车辆信息
+        # ctype： 0-empty, 1-string, 2-number, 3-date, 4-boolean, 5-error
+
+        number = worksheet.cell_value(i, 1)  # 车辆类型
+        # print(number)
+        try:
+            vehicle_info = Vehicle.objects.get(number=number)
+            if worksheet.cell_value(i, 2) != '':
+                vehicle_info.discovery = int(worksheet.cell_value(i, 2))    # 排查方式
+
+            if worksheet.cell_value(i, 3) != '':
+                vehicle_info.is_card = int(worksheet.cell_value(i, 3))      # 是否发卡
+
+            if vehicle_info.is_card == 1:
+                vehicle_info.c_time = '2018-07-02 10:00:00'
+
+            if worksheet.cell_value(i, 4) != '':
+                vehicle_info.is_archive = int(worksheet.cell_value(i, 4))   # 是否建档
+
+            if vehicle_info.is_archive == 1:
+                vehicle_info.a_time = '2018-07-02 10:00:00'
+
+            if worksheet.cell_value(i, 10) != '':
+                vehicle_info.is_secure = int(worksheet.cell_value(i, 10))   # 是否存在隐患
+            vehicle_info.secure = worksheet.cell_value(i, 9)
+            vehicle_info.d_time = '2018-07-02 10:00:00'
+            vehicle_info.driver = worksheet.cell_value(i, 13)
+            vehicle_info.d_phone = worksheet.cell_value(i, 14)
+
+            if vehicle_info.is_card == 1 and vehicle_info.is_archive == 1 and vehicle_info.is_secure == 0:
+                vehicle_info.status = 4
+            elif vehicle_info.is_card == 1 and vehicle_info.is_archive == 1 and vehicle_info.is_secure == 1:
+                vehicle_info.status = 3
+            else:
+                vehicle_info.status = 2
+
+            dept_name = worksheet.cell_value(i, 12)
+            for dept in dept_list:
+                if dept_name in dept.dept_name:
+                    vehicle_info.d_dept_id = dept.id
+                    break
+
+            vehicle_info.save()
+            # print('vehicle update')
+        except Exception as e:
+            print(e)
+            continue
+
+    # print('update complete')
+
+    return render(request, 'import.html')

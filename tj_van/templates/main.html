@@ -58,6 +58,14 @@
 {#        <li class="main">账号管理</li>#}
         <li class="down_menu" data-url="/account">账号管理</li>
         {% endif %}
+        {% if user.authority == 0 %}
+{#        <li class="main">账号管理</li>#}
+        <li class="down_menu" data-url="/import">车辆数据导入</li>
+        {% endif %}
+        {% if user.authority == 0 %}
+{#        <li class="main">账号管理</li>#}
+        <li class="down_menu" data-url="/update">排查数据导入</li>
+        {% endif %}
     </ul>
 </div>
 <div class="content">

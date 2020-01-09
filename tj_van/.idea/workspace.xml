@@ -14,11 +14,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tj_van_app/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tj_van_app/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="26">
+              <caret line="317" column="81" selection-start-line="317" selection-start-column="71" selection-end-line="317" selection-end-column="81" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tj_van_app/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="546">
-              <caret line="22" selection-start-line="22" selection-end-line="22" />
+            <state relative-caret-position="598">
+              <caret line="24" column="18" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="18" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -29,8 +50,8 @@
       <file leaf-file-name="vehicle.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/vehicle.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="26">
-              <caret line="103" column="9" selection-start-line="103" selection-start-column="9" selection-end-line="103" selection-end-column="9" />
+            <state relative-caret-position="3510">
+              <caret line="135" column="36" selection-start-line="135" selection-start-column="36" selection-end-line="135" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -38,8 +59,8 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tj_van/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1708">
-              <caret line="129" column="50" selection-start-line="129" selection-start-column="50" selection-end-line="129" selection-end-column="50" />
+            <state relative-caret-position="884">
+              <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -47,47 +68,26 @@
       <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+            <state relative-caret-position="1716">
+              <caret line="66" column="47" selection-start-line="66" selection-start-column="47" selection-end-line="66" selection-end-column="47" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="check.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/check.html">
+      <file leaf-file-name="import.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/import.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5746">
-              <caret line="221" column="33" selection-start-line="221" selection-start-column="33" selection-end-line="221" selection-end-column="33" />
-              <folding>
-                <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#td#1;n#tr#4;n#table#0;n#form#0;n#div#1;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="2574">
+              <caret line="99" selection-start-line="99" selection-end-line="99" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tj_van_app/models.py">
+      <file leaf-file-name="update.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/update.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="703">
-              <caret line="36" column="7" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tj_van_app/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="382">
-              <caret line="583" column="54" selection-start-line="583" selection-start-column="35" selection-end-line="583" selection-end-column="54" />
-              <folding>
-                <element signature="e#0#27#0" expanded="true" />
-                <element signature="e#10521#11295#0" />
-                <element signature="e#11338#12247#0" />
-                <element signature="e#12296#12608#0" />
-                <element signature="e#12653#13089#0" />
-                <element signature="e#13132#15223#0" />
-              </folding>
+            <state relative-caret-position="2782">
+              <caret line="107" column="57" selection-start-line="107" selection-start-column="57" selection-end-line="107" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -95,7 +95,7 @@
       <file leaf-file-name="statistic.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/statistic.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-120">
+            <state relative-caret-position="2808">
               <caret line="108" column="65" selection-start-line="108" selection-start-column="65" selection-end-line="108" selection-end-column="65" />
             </state>
           </provider>
@@ -104,8 +104,8 @@
       <file leaf-file-name="verify.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/verify.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="264" column="56" lean-forward="true" selection-start-line="264" selection-start-column="56" selection-end-line="264" selection-end-column="56" />
+            <state relative-caret-position="6864">
+              <caret line="264" column="56" selection-start-line="264" selection-start-column="56" selection-end-line="264" selection-end-column="56" />
             </state>
           </provider>
         </entry>
@@ -125,16 +125,15 @@
       <find>车辆排查</find>
       <find>setUserInfo</find>
       <find>modify-vehicle</find>
-      <find>print</find>
       <find>str</find>
       <find>strf</find>
+      <find>print</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/tj_van/__init__.py" />
-        <option value="$PROJECT_DIR$/tj_van/settings.py" />
         <option value="$PROJECT_DIR$/static/css/header.css" />
         <option value="$PROJECT_DIR$/templates/login.html" />
         <option value="$PROJECT_DIR$/tj_van/urls.py" />
@@ -143,13 +142,16 @@
         <option value="$PROJECT_DIR$/conf/uwsgi.ini" />
         <option value="$PROJECT_DIR$/conf/nginx.conf" />
         <option value="$PROJECT_DIR$/tj_van_app/models.py" />
-        <option value="$PROJECT_DIR$/tj_van_app/urls.py" />
         <option value="$PROJECT_DIR$/templates/check.html" />
-        <option value="$PROJECT_DIR$/templates/vehicle.html" />
-        <option value="$PROJECT_DIR$/templates/main.html" />
         <option value="$PROJECT_DIR$/templates/statistic.html" />
-        <option value="$PROJECT_DIR$/tj_van_app/views.py" />
         <option value="$PROJECT_DIR$/templates/verify.html" />
+        <option value="$PROJECT_DIR$/tj_van/settings.py" />
+        <option value="$PROJECT_DIR$/templates/import.html" />
+        <option value="$PROJECT_DIR$/tj_van_app/urls.py" />
+        <option value="$PROJECT_DIR$/templates/main.html" />
+        <option value="$PROJECT_DIR$/templates/update.html" />
+        <option value="$PROJECT_DIR$/templates/vehicle.html" />
+        <option value="$PROJECT_DIR$/tj_van_app/views.py" />
       </list>
     </option>
   </component>
@@ -163,10 +165,10 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1985" />
-    <option name="y" value="-4" />
+    <option name="x" value="65" />
+    <option name="y" value="24" />
     <option name="width" value="1855" />
-    <option name="height" value="1204" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -179,11 +181,6 @@
             <path>
               <item name="tj_van" type="b2602c69:ProjectViewProjectNode" />
               <item name="tj_van" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="tj_van" type="b2602c69:ProjectViewProjectNode" />
-              <item name="tj_van" type="462c0819:PsiDirectoryNode" />
-              <item name="conf" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="tj_van" type="b2602c69:ProjectViewProjectNode" />
@@ -214,7 +211,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../python/tj8890" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../python/tj_orta" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -277,23 +274,22 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1985" y="-4" width="1855" height="1204" extended-state="6" />
-    <editor active="true" />
+    <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32961932" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.27762303" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18608503" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.24242425" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19050248" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="SciView" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -315,28 +311,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/vehicle.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8242">
-          <caret line="317" column="12" selection-start-line="317" selection-start-column="12" selection-end-line="317" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tj_van_app/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9594">
-          <caret line="369" lean-forward="true" selection-start-line="369" selection-end-line="369" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-            <element signature="e#10521#11295#0" />
-            <element signature="e#11338#12247#0" />
-            <element signature="e#12296#12608#0" />
-            <element signature="e#12653#13089#0" />
-            <element signature="e#13132#15223#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/verify.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2652">
@@ -381,11 +355,6 @@
           <caret line="234" column="38" lean-forward="true" selection-start-line="234" selection-start-column="38" selection-end-line="234" selection-end-column="38" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
-            <element signature="e#10521#11295#0" />
-            <element signature="e#11338#12247#0" />
-            <element signature="e#12296#12608#0" />
-            <element signature="e#12653#13089#0" />
-            <element signature="e#13132#15223#0" />
           </folding>
         </state>
       </provider>
@@ -434,11 +403,6 @@
           <caret line="173" column="59" selection-start-line="173" selection-start-column="46" selection-end-line="173" selection-end-column="59" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
-            <element signature="e#10521#11295#0" />
-            <element signature="e#11338#12247#0" />
-            <element signature="e#12296#12608#0" />
-            <element signature="e#12653#13089#0" />
-            <element signature="e#13132#15223#0" />
           </folding>
         </state>
       </provider>
@@ -569,80 +533,85 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/check.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5746">
+          <caret line="221" column="33" selection-start-line="221" selection-start-column="33" selection-end-line="221" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/statistic.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2808">
+          <caret line="108" column="65" selection-start-line="108" selection-start-column="65" selection-end-line="108" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/verify.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6864">
+          <caret line="264" column="56" selection-start-line="264" selection-start-column="56" selection-end-line="264" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tj_van/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="884">
+          <caret line="34" column="24" selection-start-line="34" selection-start-column="24" selection-end-line="34" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1716">
+          <caret line="66" column="47" selection-start-line="66" selection-start-column="47" selection-end-line="66" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/import.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2574">
+          <caret line="99" selection-start-line="99" selection-end-line="99" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/update.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2782">
+          <caret line="107" column="57" selection-start-line="107" selection-start-column="57" selection-end-line="107" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tj_van_app/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        <state relative-caret-position="598">
+          <caret line="24" column="18" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="18" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/check.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5746">
-          <caret line="221" column="33" selection-start-line="221" selection-start-column="33" selection-end-line="221" selection-end-column="33" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#td#1;n#tr#4;n#table#0;n#form#0;n#div#1;n#div#1;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/statistic.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-120">
-          <caret line="108" column="65" selection-start-line="108" selection-start-column="65" selection-end-line="108" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tj_van_app/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="703">
-          <caret line="36" column="7" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
+        <state relative-caret-position="442">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/vehicle.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="103" column="9" selection-start-line="103" selection-start-column="9" selection-end-line="103" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tj_van/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1708">
-          <caret line="129" column="50" selection-start-line="129" selection-start-column="50" selection-end-line="129" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/verify.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="264" column="56" lean-forward="true" selection-start-line="264" selection-start-column="56" selection-end-line="264" selection-end-column="56" />
+        <state relative-caret-position="3510">
+          <caret line="135" column="36" selection-start-line="135" selection-start-column="36" selection-end-line="135" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tj_van_app/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="382">
-          <caret line="583" column="54" selection-start-line="583" selection-start-column="35" selection-end-line="583" selection-end-column="54" />
+        <state relative-caret-position="26">
+          <caret line="317" column="81" selection-start-line="317" selection-start-column="71" selection-end-line="317" selection-end-column="81" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
-            <element signature="e#10521#11295#0" />
-            <element signature="e#11338#12247#0" />
-            <element signature="e#12296#12608#0" />
-            <element signature="e#12653#13089#0" />
-            <element signature="e#13132#15223#0" />
           </folding>
         </state>
       </provider>
